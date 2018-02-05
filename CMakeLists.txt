@@ -39,14 +39,18 @@ IF(BUILD_POSITION_INDEPENDENT_CODE)
   add_definitions( -fPIC )
 ENDIF()
 
-ADD_DEFINITIONS (
--Wall
--Wextra
-#-Werror
--Wwrite-strings
--Wno-unused-parameter
--fno-strict-aliasing
-)
+if(CMAKE_COMPILER_IS_GNUCXX)
+    message(STATUS "GCC detected, adding compile flags")
+    ADD_DEFINITIONS (
+    -Wall
+    -Wextra
+    #-Werror
+    -Wwrite-strings
+    -Wno-unused-parameter
+    -fno-strict-aliasing
+    )
+endif(CMAKE_COMPILER_IS_GNUCXX)
+
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/modules/")
 find_package(Eigen REQUIRED)

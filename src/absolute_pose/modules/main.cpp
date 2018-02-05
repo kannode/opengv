@@ -770,7 +770,8 @@ opengv::absolute_pose::modules::upnp_main(
     {
       Eigen::Matrix<double,10,1> s;
       upnp_fill_s(quaternion,s);
-      Eigen::Matrix<double,1,1> valueM = s.transpose() * M * s + 2.0 * C * s;
+      //Eigen::Matrix<double,1,1> valueM = s.transpose() * M * s + 2.0 * C * s;
+	  Eigen::Matrix<double, 1, 1> valueM = s.transpose() * M * s + C * s * 2.0;
       double value = valueM[0] + gamma;
       
       std::vector<std::pair<double,Eigen::Vector4d>,Eigen::aligned_allocator< std::pair<double,Eigen::Vector4d> > >::iterator
@@ -817,7 +818,8 @@ opengv::absolute_pose::modules::upnp_main_sym(
     
     Eigen::Matrix<double,10,1> s;
     upnp_fill_s(quaternion,s);
-    Eigen::Matrix<double,1,1> valueM = s.transpose() * M * s + 2.0 * C * s;
+    //Eigen::Matrix<double,1,1> valueM = s.transpose() * M * s + 2.0 * C * s;
+	Eigen::Matrix<double, 1, 1> valueM = s.transpose() * M * s + C * s * 2.0;
     double value = valueM[0] + gamma;
 
     if( true )//fabs(D[i].imag()) < imagThreshold ) //use all results for the moment
